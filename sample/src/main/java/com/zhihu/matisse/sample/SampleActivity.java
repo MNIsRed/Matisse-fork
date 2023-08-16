@@ -17,6 +17,7 @@ package com.zhihu.matisse.sample;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -174,6 +177,8 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
 
             holder.mUri.setAlpha(position % 2 == 0 ? 1.0f : 0.54f);
             holder.mPath.setAlpha(position % 2 == 0 ? 1.0f : 0.54f);
+            Context context = holder.mImageView.getContext();
+            Glide.with(context).load(mUris.get(position)).into(holder.mImageView);
         }
 
         @Override
@@ -186,10 +191,12 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
             private TextView mUri;
             private TextView mPath;
 
+            private ImageView mImageView;
             UriViewHolder(View contentView) {
                 super(contentView);
                 mUri = (TextView) contentView.findViewById(R.id.uri);
                 mPath = (TextView) contentView.findViewById(R.id.path);
+                mImageView = contentView.findViewById(R.id.image);
             }
         }
     }
